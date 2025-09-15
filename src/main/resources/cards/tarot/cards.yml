@@ -1,0 +1,593 @@
+## YAML Template.
+---
+  cards:
+    - name: "The Fool"
+      house: "Major Arcana"
+      number: 0
+      upright_keywords: ["beginnings", "innocence", "spontaneity", "a free spirit"]
+      reversed_keywords: ["recklessness", "naivete", "risk-taking", "held back"]
+      description: "A free spirit on the brink of a great journey, The Fool represents new beginnings and the courage to step into the unknown."
+      elemental_correspondence: "Air"
+      astrological_correspondence: "Uranus"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_00_Fool.jpeg"
+    - name: "The Magician"
+      house: "Major Arcana"
+      number: 1
+      upright_keywords: ["manifestation", "resourcefulness", "power", "inspired action"]
+      reversed_keywords: ["manipulation", "poor planning", "untapped talents", "deception"]
+      description: "The Magician is a master of all elements, with the power to turn ideas into reality. This card signifies using your skills to achieve your goals."
+      elemental_correspondence: "Air"
+      astrological_correspondence: "Mercury"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_01_Magician.jpeg"
+    - name: "The High Priestess"
+      house: "Major Arcana"
+      number: 2
+      upright_keywords: ["intuition", "sacred knowledge", "divine feminine", "the subconscious mind"]
+      reversed_keywords: ["secrets", "disconnected from intuition", "superficiality"]
+      description: "Sitting between two pillars, The High Priestess holds the secrets of the subconscious. She is a symbol of intuition, mystery, and inner wisdom."
+      elemental_correspondence: "Water"
+      astrological_correspondence: "The Moon"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_02_High_Priestess.jpeg"
+    - name: "The Empress"
+      house: "Major Arcana"
+      number: 3
+      upright_keywords: ["femininity", "nature", "nurturing", "abundance"]
+      reversed_keywords: ["stagnation", "smothering", "dependence", "creativity block"]
+      description: "The Empress embodies the fertile power of the Earth. She represents creativity, nurturing, and abundance in all aspects of life."
+      elemental_correspondence: "Earth"
+      astrological_correspondence: "Venus"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_03_Empress.jpeg"
+    - name: "The Emperor"
+      house: "Major Arcana"
+      number: 4
+      upright_keywords: ["authority", "structure", "control", "father figure"]
+      reversed_keywords: ["domination", "rigidity", "abuse of power", "lack of discipline"]
+      description: "The Emperor sits on a throne, symbolizing structure and authority. He represents logic, order, and the masculine energy of command."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "Aries"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_04_Emperor.jpeg"
+    - name: "The Hierophant"
+      house: "Major Arcana"
+      number: 5
+      upright_keywords: ["tradition", "conformity", "morality", "spiritual wisdom"]
+      reversed_keywords: ["rebellion", "breaking tradition", "unconventional beliefs", "non-conformity"]
+      description: "The Hierophant represents tradition and established beliefs. This card signifies spiritual wisdom passed down through sacred institutions."
+      elemental_correspondence: "Earth"
+      astrological_correspondence: "Taurus"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_05_Hierophant.jpeg"
+    - name: "The Lovers"
+      house: "Major Arcana"
+      number: 6
+      upright_keywords: ["love", "harmony", "choices", "relationship"]
+      reversed_keywords: ["disharmony", "imbalance", "bad choices", "conflict"]
+      description: "The Lovers card signifies a pivotal choice, often related to love and relationships. It represents union, harmony, and profound connection."
+      elemental_correspondence: "Air"
+      astrological_correspondence: "Gemini"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_06_Lovers.jpeg"
+    - name: "The Chariot"
+      house: "Major Arcana"
+      number: 7
+      upright_keywords: ["willpower", "victory", "determination", "success"]
+      reversed_keywords: ["lack of control", "directionless", "defeat", "self-discipline"]
+      description: "The Chariot is about taking control of your path and moving forward with purpose. It symbolizes willpower, triumph, and mastering your own destiny."
+      elemental_correspondence: "Water"
+      astrological_correspondence: "Cancer"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_07_Chariot.jpeg"
+    - name: "Strength"
+      house: "Major Arcana"
+      number: 8
+      upright_keywords: ["courage", "compassion", "inner strength", "patience"]
+      reversed_keywords: ["weakness", "self-doubt", "lack of control", "brute force"]
+      description: "Strength is not about brute force, but about the gentle power of the human spirit. It signifies courage, compassion, and inner fortitude."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "Leo"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_08_Strength.jpeg"
+    - name: "The Hermit"
+      house: "Major Arcana"
+      number: 9
+      upright_keywords: ["introspection", "solitude", "inner wisdom", "soul-searching"]
+      reversed_keywords: ["loneliness", "isolation", "withdrawal", "over-analysis"]
+      description: "The Hermit walks alone, seeking inner truth and wisdom. This card signifies a time for introspection, solitude, and finding your own light."
+      elemental_correspondence: "Earth"
+      astrological_correspondence: "Virgo"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_09_Hermit.jpeg"
+    - name: "Wheel of Fortune"
+      house: "Major Arcana"
+      number: 10
+      upright_keywords: ["fate", "luck", "change", "cycles"]
+      reversed_keywords: ["bad luck", "stagnation", "setbacks", "unexpected downfall"]
+      description: "The Wheel of Fortune represents the ever-turning cycles of life. It signifies a major turn of events, luck, and the unpredictable nature of fate."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "Jupiter"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_10_Wheel_of_Fortune.jpeg"
+    - name: "Justice"
+      house: "Major Arcana"
+      number: 11
+      upright_keywords: ["justice", "fairness", "truth", "cause and effect"]
+      reversed_keywords: ["injustice", "untruthfulness", "bias", "avoiding accountability"]
+      description: "Justice is a card of balance and truth. It represents fairness, legality, and the idea that every action has a consequence."
+      elemental_correspondence: "Air"
+      astrological_correspondence: "Libra"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_11_Justice.jpeg"
+    - name: "The Hanged Man"
+      house: "Major Arcana"
+      number: 12
+      upright_keywords: ["surrender", "new perspective", "release", "sacrifice"]
+      reversed_keywords: ["stalling", "delay", "resistance", "unwillingness to adapt"]
+      description: "The Hanged Man hangs upside down, a symbol of willingly putting yourself in a new perspective. It signifies surrender, sacrifice, and seeing things from a different angle."
+      elemental_correspondence: "Water"
+      astrological_correspondence: "Neptune"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_12_Hanged_Man.jpeg"
+    - name: "Death"
+      house: "Major Arcana"
+      number: 13
+      upright_keywords: ["endings", "transformation", "transition", "rebirth"]
+      reversed_keywords: ["resistance to change", "stagnation", "fear of endings", "holding on"]
+      description: "Death is not about physical demise, but the ending of one cycle to make way for a new one. It represents profound transformation and rebirth."
+      elemental_correspondence: "Water"
+      astrological_correspondence: "Scorpio"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_13_Death.jpeg"
+    - name: "Temperance"
+      house: "Major Arcana"
+      number: 14
+      upright_keywords: ["balance", "moderation", "patience", "harmony"]
+      reversed_keywords: ["imbalance", "excess", "conflict", "lack of control"]
+      description: "Temperance is a card of moderation and balance. It signifies finding harmony by blending different energies and exercising patience."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "Sagittarius"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_14_Temperance.jpeg"
+    - name: "The Devil"
+      house: "Major Arcana"
+      number: 15
+      upright_keywords: ["addiction", "bondage", "materialism", "temptation"]
+      reversed_keywords: ["breaking free", "detachment", "reclaiming power", "confronting shadows"]
+      description: "The Devil represents being bound by earthly desires, addictions, or negative patterns. It is a call to confront your shadow self and break free."
+      elemental_correspondence: "Earth"
+      astrological_correspondence: "Capricorn"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_15_Devil.jpeg"
+    - name: "The Tower"
+      house: "Major Arcana"
+      number: 16
+      upright_keywords: ["upheaval", "sudden change", "crisis", "revelation"]
+      reversed_keywords: ["avoiding disaster", "fear of change", "stalling the inevitable"]
+      description: "The Tower signifies a sudden, chaotic upheaval that shatters old structures. It is a powerful force of change that, while destructive, clears the way for new growth."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "Mars"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_16_Tower.jpeg"
+    - name: "The Star"
+      house: "Major Arcana"
+      number: 17
+      upright_keywords: ["hope", "inspiration", "healing", "renewed purpose"]
+      reversed_keywords: ["despair", "hopelessness", "lack of faith", "feeling uninspired"]
+      description: "The Star shines brightly, offering hope and inspiration. It is a card of healing, optimism, and finding your guiding light in the darkness."
+      elemental_correspondence: "Air"
+      astrological_correspondence: "Aquarius"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_17_Star.jpeg"
+    - name: "The Moon"
+      house: "Major Arcana"
+      number: 18
+      upright_keywords: ["illusion", "intuition", "subconscious", "dreams"]
+      reversed_keywords: ["confusion", "unveiling deception", "releasing fear"]
+      description: "The Moon represents the mysteries of the subconscious and the power of intuition. It warns of illusions and hidden fears that may be at play."
+      elemental_correspondence: "Water"
+      astrological_correspondence: "Pisces"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_18_Moon.jpeg"
+    - name: "The Sun"
+      house: "Major Arcana"
+      number: 19
+      upright_keywords: ["joy", "success", "vitality", "celebration"]
+      reversed_keywords: ["sadness", "pessimism", "lack of vitality", "temporary setbacks"]
+      description: "The Sun is the most positive card in the deck, symbolizing pure joy and success. It represents happiness, vitality, and the clarity that comes from a new day."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "The Sun"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_19_Sun.jpeg"
+    - name: "Judgement"
+      house: "Major Arcana"
+      number: 20
+      upright_keywords: ["judgement", "rebirth", "inner calling", "absolution"]
+      reversed_keywords: ["self-doubt", "unwillingness to learn", "lack of accountability"]
+      description: "Judgement is a call to awaken and accept a higher calling. It signifies a moment of reckoning, personal rebirth, and a new phase of life."
+      elemental_correspondence: "Fire"
+      astrological_correspondence: "Pluto"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_20_Judgement.jpeg"
+    - name: "The World"
+      house: "Major Arcana"
+      number: 21
+      upright_keywords: ["completion", "wholeness", "success", "fulfillment"]
+      reversed_keywords: ["incompleteness", "lack of closure", "stagnation", "unfulfilled potential"]
+      description: "The World represents the culmination of a journey and the achievement of a goal. It signifies completion, fulfillment, and a new cycle of life."
+      elemental_correspondence: "Earth"
+      astrological_correspondence: "Saturn"
+      resourcePath: "cards/tarot/500px-RWS_Tarot_21_World.jpeg"
+    - name: "Ace of Wands"
+      house: "Wands"
+      upright_keywords: ["inspiration", "new beginnings", "potential", "creation"]
+      reversed_keywords: ["creative block", "lack of direction", "frustration"]
+      description: "The Ace of Wands represents a spark of inspiration and a new creative opportunity. It's the beginning of a passionate new project or idea."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands01.jpeg"
+    - name: "Two of Wands"
+      house: "Wands"
+      upright_keywords: ["future planning", "leaving home", "making a decision", "progress"]
+      reversed_keywords: ["fear of the unknown", "playing it safe", "lack of a plan"]
+      description: "A card of future planning and foresight. It's about contemplating your next move and weighing your options before taking action."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands02.jpeg"
+    - name: "Three of Wands"
+      house: "Wands"
+      upright_keywords: ["expansion", "foresight", "foreign lands", "collaboration"]
+      reversed_keywords: ["delays", "obstacles", "frustration", "unexpected setbacks"]
+      description: "The Three of Wands signifies progress and the expansion of your horizons. It's about looking to the future and seeing your efforts bear fruit."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands03.jpeg"
+    - name: "Four of Wands"
+      house: "Wands"
+      upright_keywords: ["celebration", "harmony", "homecoming", "community"]
+      reversed_keywords: ["instability", "transition", "lack of support", "conflict at home"]
+      description: "A card of joy and celebration. The Four of Wands symbolizes a happy homecoming, a stable home life, and a time to celebrate with loved ones."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands04.jpeg"
+    - name: "Five of Wands"
+      house: "Wands"
+      upright_keywords: ["competition", "conflict", "disagreement", "struggle"]
+      reversed_keywords: ["avoiding conflict", "conflict resolution", "compromise"]
+      description: "The Five of Wands represents healthy competition or a minor conflict. It's a reminder that sometimes, a struggle can lead to growth and a stronger outcome."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands05.jpeg"
+    - name: "Six of Wands"
+      house: "Wands"
+      upright_keywords: ["victory", "success", "public recognition", "self-confidence"]
+      reversed_keywords: ["defeat", "lack of recognition", "failure", "pride"]
+      description: "The Six of Wands is the card of victory and triumph. It signifies success, public recognition, and the feeling of having overcome a challenge."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands06.jpeg"
+    - name: "Seven of Wands"
+      house: "Wands"
+      upright_keywords: ["perseverance", "defensiveness", "standing your ground", "courage"]
+      reversed_keywords: ["giving up", "feeling overwhelmed", "losing courage", "back down"]
+      description: "The Seven of Wands represents the need to stand your ground and defend your position. It's about having the courage to face challenges and persevere."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands07.jpeg"
+    - name: "Eight of Wands"
+      house: "Wands"
+      upright_keywords: ["rapid action", "movement", "quick decisions", "news"]
+      reversed_keywords: ["delay", "frustration", "rushed decisions", "slow down"]
+      description: "The Eight of Wands signifies fast-paced action and rapid change. It's about things moving quickly and getting a sudden rush of energy."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands08.jpeg"
+    - name: "Nine of Wands"
+      house: "Wands"
+      upright_keywords: ["resilience", "perseverance", "last stand", "courage"]
+      reversed_keywords: ["exhaustion", "feeling defeated", "defensiveness", "paranoia"]
+      description: "The Nine of Wands shows resilience and inner strength. It's about being on guard after a long battle, but having the wisdom to persevere."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Tarot_Nine_of_Wands.jpeg"
+    - name: "Ten of Wands"
+      house: "Wands"
+      upright_keywords: ["burden", "responsibility", "overwhelmed", "duty"]
+      reversed_keywords: ["letting go", "unburdening", "relief", "delegation"]
+      description: "The Ten of Wands represents taking on a heavy burden or too much responsibility. It's a call to release what is no longer serving you."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands10.jpeg"
+    - name: "Page of Wands"
+      house: "Wands"
+      upright_keywords: ["new ideas", "inspiration", "creativity", "explorer"]
+      reversed_keywords: ["lack of ideas", "procrastination", "disappointment", "stagnation"]
+      description: "The Page of Wands is a messenger of new and creative energy. This card signifies an inspired new idea or a passion project on the horizon."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands11.jpeg"
+    - name: "Knight of Wands"
+      house: "Wands"
+      upright_keywords: ["action", "adventure", "courage", "travel"]
+      reversed_keywords: ["impulsiveness", "recklessness", "arrogance", "haste"]
+      description: "The Knight of Wands is an energetic and action-oriented figure. This card signifies movement, excitement, and a burst of passionate energy."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands12.jpeg"
+    - name: "Queen of Wands"
+      house: "Wands"
+      upright_keywords: ["courage", "confidence", "determination", "social butterfly"]
+      reversed_keywords: ["jealousy", "selfishness", "insecurity", "controlling"]
+      description: "The Queen of Wands is a confident and dynamic leader. She represents a courageous person who is passionate, determined, and a natural entertainer."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands13.jpeg"
+    - name: "King of Wands"
+      house: "Wands"
+      upright_keywords: ["visionary", "leadership", "inspiration", "authority"]
+      reversed_keywords: ["tyranny", "dictatorial", "burnout", "impulsive"]
+      description: "The King of Wands is a natural-born leader and visionary. He represents someone with the authority, passion, and vision to bring a grand idea to life."
+      elemental_correspondence: "Fire"
+      resourcePath: "cards/tarot/500px-Wands14.jpeg"
+    - name: "Ace of Cups"
+      house: "Cups"
+      upright_keywords: ["new emotions", "love", "compassion", "intuition"]
+      reversed_keywords: ["blocked emotions", "repressed feelings", "emptiness", "unhappiness"]
+      description: "The Ace of Cups represents a new beginning of love, emotions, and creativity. It is a symbol of a heart opening and a flood of new feelings."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups01.jpeg"
+    - name: "Two of Cups"
+      house: "Cups"
+      upright_keywords: ["partnership", "union", "mutual attraction", "love"]
+      reversed_keywords: ["imbalance", "conflict", "break-up", "separation"]
+      description: "The Two of Cups signifies a profound connection, often a romantic one, built on mutual respect and attraction. It represents a powerful union."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups02.jpeg"
+    - name: "Three of Cups"
+      house: "Cups"
+      upright_keywords: ["celebration", "friendship", "community", "joy"]
+      reversed_keywords: ["isolation", "gossip", "overindulgence", "conflict among friends"]
+      description: "A card of celebration and camaraderie. The Three of Cups signifies a happy gathering, a shared success, and the joy of friendship."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups03.jpeg"
+    - name: "Four of Cups"
+      house: "Cups"
+      upright_keywords: ["apathy", "boredom", "contemplation", "discontent"]
+      reversed_keywords: ["new opportunities", "re-evaluation", "choosing happiness"]
+      description: "The Four of Cups shows a person feeling apathetic or uninspired, missing the opportunities right in front of them. It's a call to look at what you have with new eyes."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups04.jpeg"
+    - name: "Five of Cups"
+      house: "Cups"
+      upright_keywords: ["grief", "loss", "disappointment", "regret"]
+      reversed_keywords: ["acceptance", "moving on", "finding help", "reconciliation"]
+      description: "The Five of Cups represents grief and disappointment over what is lost, but a failure to see what remains. It's a card of sorrow and regret."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups05.jpeg"
+    - name: "Six of Cups"
+      house: "Cups"
+      upright_keywords: ["nostalgia", "childhood memories", "innocence", "reunion"]
+      reversed_keywords: ["living in the past", "unhealthy nostalgia", "stuck"]
+      description: "The Six of Cups is a card of nostalgia, kindness, and looking back at the past. It can signify a reunion with an old friend or a memory from childhood."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups06.jpeg"
+    - name: "Seven of Cups"
+      house: "Cups"
+      upright_keywords: ["choices", "daydreaming", "illusion", "wishes"]
+      reversed_keywords: ["clarity", "making a decision", "willpower", "lack of purpose"]
+      description: "The Seven of Cups represents having many choices, but also being lost in daydreams and illusions. It's a reminder to focus and make a clear decision."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups07.jpeg"
+    - name: "Eight of Cups"
+      house: "Cups"
+      upright_keywords: ["abandonment", "disillusionment", "walking away", "searching for a deeper meaning"]
+      reversed_keywords: ["stagnation", "fear of leaving", "avoiding change"]
+      description: "The Eight of Cups is a card of emotional abandonment. It signifies walking away from a situation that no longer serves your emotional or spiritual needs."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups08.jpeg"
+    - name: "Nine of Cups"
+      house: "Cups"
+      upright_keywords: ["satisfaction", "wishes fulfilled", "comfort", "emotional contentment"]
+      reversed_keywords: ["unhappiness", "greed", "smugness", "lack of joy"]
+      description: "The Nine of Cups is the wish card of the deck. It represents emotional satisfaction and a feeling of contentment and fulfillment."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups09.jpeg"
+    - name: "Ten of Cups"
+      house: "Cups"
+      upright_keywords: ["happiness", "family", "joy", "emotional fulfillment"]
+      reversed_keywords: ["broken home", "family conflict", "unhappiness", "disharmony"]
+      description: "The Ten of Cups represents a happy family life, emotional fulfillment, and true joy. It is the perfect culmination of love and contentment."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups10.jpeg"
+    - name: "Page of Cups"
+      house: "Cups"
+      upright_keywords: ["creative news", "intuition", "dreamer", "sensitivity"]
+      reversed_keywords: ["emotional immaturity", "creative block", "insecure", "unfulfilled desires"]
+      description: "The Page of Cups is a messenger of emotional news or a new creative project. He represents a sensitive and intuitive person who is open to their feelings."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups11.jpeg"
+    - name: "Knight of Cups"
+      house: "Cups"
+      upright_keywords: ["idealist", "romantic", "charming", "following your heart"]
+      reversed_keywords: ["moody", "disappointed", "brooding", "overly emotional"]
+      description: "The Knight of Cups is a romantic and charming figure who follows his heart. He signifies an offer of love, an invitation, or a creative proposal."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups12.jpeg"
+    - name: "Queen of Cups"
+      house: "Cups"
+      upright_keywords: ["compassion", "empathy", "intuition", "healing"]
+      reversed_keywords: ["emotional instability", "martyrdom", "codependency", "immaturity"]
+      description: "The Queen of Cups is a nurturing and intuitive figure. She represents compassion, emotional support, and the ability to heal others."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups13.jpeg"
+    - name: "King of Cups"
+      house: "Cups"
+      upright_keywords: ["emotional balance", "compassion", "calm", "diplomacy"]
+      reversed_keywords: ["moodiness", "emotional manipulation", "lack of control", "suppressed emotions"]
+      description: "The King of Cups is a master of his emotions. He represents a kind, compassionate leader who is emotionally mature and in control."
+      elemental_correspondence: "Water"
+      resourcePath: "cards/tarot/500px-Cups14.jpeg"
+    - name: "Ace of Swords"
+      house: "Swords"
+      upright_keywords: ["new ideas", "truth", "clarity", "breakthroughs"]
+      reversed_keywords: ["confusion", "intellectual block", "lies", "lack of clarity"]
+      description: "The Ace of Swords represents a breakthrough moment. It's a new idea, a sudden moment of clarity, or a truth that cuts through the noise."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords01.jpeg"
+    - name: "Two of Swords"
+      house: "Swords"
+      upright_keywords: ["stalemate", "difficult choice", "avoiding the truth", "truce"]
+      reversed_keywords: ["indecision", "unveiling the truth", "release of conflict"]
+      description: "The Two of Swords signifies a difficult choice and a mental stalemate. It's about being blind to a situation and trying to find a peaceful resolution."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords02.jpeg"
+    - name: "Three of Swords"
+      house: "Swords"
+      upright_keywords: ["heartbreak", "sorrow", "pain", "grief"]
+      reversed_keywords: ["healing", "releasing pain", "forgiveness", "moving on"]
+      description: "The Three of Swords represents emotional pain, sorrow, and heartbreak. It's a card of grief and the difficult but necessary process of facing your feelings."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords03.jpeg"
+    - name: "Four of Swords"
+      house: "Swords"
+      upright_keywords: ["rest", "recovery", "contemplation", "meditation"]
+      reversed_keywords: ["restlessness", "burnout", "lack of progress", "returning to conflict"]
+      description: "The Four of Swords signifies a need for rest and recovery. It's a card of retreat, contemplation, and preparing for the next phase of your journey."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords04.jpeg"
+    - name: "Five of Swords"
+      house: "Swords"
+      upright_keywords: ["defeat", "conflict", "loss", "dishonor"]
+      reversed_keywords: ["reconciliation", "moving on", "forgiveness", "letting go of bitterness"]
+      description: "The Five of Swords is a card of conflict and hollow victory. It signifies a battle where everyone loses, leading to regret and defeat."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords05.jpeg"
+    - name: "Six of Swords"
+      house: "Swords"
+      upright_keywords: ["transition", "moving on", "leaving behind", "passage"]
+      reversed_keywords: ["stuck in the past", "resistance to change", "difficulty moving on"]
+      description: "The Six of Swords represents a difficult but necessary transition. It's about leaving a troubled situation behind and moving towards calmer waters."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords06.jpeg"
+    - name: "Seven of Swords"
+      house: "Swords"
+      upright_keywords: ["deception", "strategy", "sneakiness", "getting away with something"]
+      reversed_keywords: ["confession", "betrayal", "reconsidering tactics"]
+      description: "The Seven of Swords is a card of strategy and cunning. It can signify deception or the need to use a non-traditional approach to achieve a goal."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords07.jpeg"
+    - name: "Eight of Swords"
+      house: "Swords"
+      upright_keywords: ["restriction", "fear", "self-imposed bondage", "feeling trapped"]
+      reversed_keywords: ["release", "freedom", "facing fears", "overcoming obstacles"]
+      description: "The Eight of Swords represents a feeling of being trapped or restricted, often by your own thoughts. It's a self-imposed prison that you have the power to escape."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords08.jpeg"
+    - name: "Nine of Swords"
+      house: "Swords"
+      upright_keywords: ["anxiety", "fear", "nightmares", "worry"]
+      reversed_keywords: ["hope", "releasing anxiety", "overcoming fear", "recovery"]
+      description: "The Nine of Swords is a card of anxiety and fear. It signifies a moment of worry, stress, and sleepless nights, often caused by your own mind."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords09.jpeg"
+    - name: "Ten of Swords"
+      house: "Swords"
+      upright_keywords: ["rock bottom", "endings", "betrayal", "ruin"]
+      reversed_keywords: ["rebirth", "recovery", "fresh start", "avoiding ruin"]
+      description: "The Ten of Swords represents a complete and final ending. It is the card of rock bottom, where there is nowhere to go but up, signifying a new beginning."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords10.jpeg"
+    - name: "Page of Swords"
+      house: "Swords"
+      upright_keywords: ["new ideas", "curiosity", "truth", "justice"]
+      reversed_keywords: ["lies", "gossip", "hasty decisions", "lack of focus"]
+      description: "The Page of Swords is a messenger of truth and new ideas. This card represents a curious and outspoken person who is unafraid to speak their mind."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords11.jpeg"
+    - name: "Knight of Swords"
+      house: "Swords"
+      upright_keywords: ["ambition", "drive", "intellect", "haste"]
+      reversed_keywords: ["rudeness", "unfocused", "impulsive", "aggressive"]
+      description: "The Knight of Swords is an ambitious and driven figure. He signifies a rush of forward momentum and the need for a focused, clear mind to achieve your goals."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords12.jpeg"
+    - name: "Queen of Swords"
+      house: "Swords"
+      upright_keywords: ["clarity", "honesty", "wit", "independence"]
+      reversed_keywords: ["coldness", "bitterness", "cruelty", "lack of empathy"]
+      description: "The Queen of Swords is a figure of intellectual honesty and clarity. She represents an independent and witty person who values truth and direct communication."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords13.jpeg"
+    - name: "King of Swords"
+      house: "Swords"
+      upright_keywords: ["logic", "authority", "intellect", "justice"]
+      reversed_keywords: ["manipulation", "abuse of power", "cold-hearted", "unjust"]
+      description: "The King of Swords is a master of logic and authority. He represents a fair and intellectual leader who makes decisions based on reason and truth."
+      elemental_correspondence: "Air"
+      resourcePath: "cards/tarot/500px-Swords14.jpeg"
+    - name: "Ace of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["new opportunities", "prosperity", "abundance", "security"]
+      reversed_keywords: ["missed opportunity", "financial loss", "instability", "scarcity"]
+      description: "The Ace of Pentacles represents a new opportunity for financial security or material abundance. It is the beginning of a new venture or investment."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents01.jpeg"
+    - name: "Two of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["balance", "priorities", "flexibility", "juggle"]
+      reversed_keywords: ["imbalance", "disorganization", "overwhelmed", "poor planning"]
+      description: "The Two of Pentacles is a card of juggling and balance. It signifies the need to manage priorities and adapt to life's changing demands."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents02.jpeg"
+    - name: "Three of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["teamwork", "collaboration", "skill", "mastery"]
+      reversed_keywords: ["lack of teamwork", "poor quality", "disorganization", "misalignment"]
+      description: "The Three of Pentacles represents teamwork and collaboration. It's about using your unique skills to work with others to achieve a shared goal."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents03.jpeg"
+    - name: "Four of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["stability", "security", "control", "materialism"]
+      reversed_keywords: ["greed", "stinginess", "hoarding", "letting go of control"]
+      description: "The Four of Pentacles signifies a need for security and control. It can represent a person who is holding on to their resources too tightly, both material and emotional."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents04.jpeg"
+    - name: "Five of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["poverty", "hardship", "loss", "isolation"]
+      reversed_keywords: ["recovery", "hope", "finding help", "overcoming hardship"]
+      description: "The Five of Pentacles represents hardship and loss, often financial or in health. It shows a feeling of being left out in the cold, but also the possibility of finding help nearby."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents05.jpeg"
+    - name: "Six of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["generosity", "charity", "sharing", "giving and receiving"]
+      reversed_keywords: ["selfishness", "debt", "unequal power", "hoarding"]
+      description: "The Six of Pentacles is a card of generosity and giving. It signifies finding balance in giving and receiving, and helping those in need."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents06.jpeg"
+    - name: "Seven of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["perseverance", "patience", "investment", "assessment"]
+      reversed_keywords: ["impatience", "poor investment", "disappointment", "lack of reward"]
+      description: "The Seven of Pentacles represents a moment of pause to assess your progress. It's a reminder to have patience as your hard work grows and matures."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents07.jpeg"
+    - name: "Eight of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["hard work", "dedication", "skill", "mastery"]
+      reversed_keywords: ["lack of focus", "perfectionism", "sloppy work", "uninspired"]
+      description: "The Eight of Pentacles signifies hard work and dedication. It's about honing a skill and putting in the time and effort to become a master."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents08.jpeg"
+    - name: "Nine of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["abundance", "luxury", "self-sufficiency", "independence"]
+      reversed_keywords: ["financial instability", "over-indulgence", "lack of discipline"]
+      description: "The Nine of Pentacles represents financial independence and the enjoyment of life's luxuries. It's a card of self-sufficiency and refined taste."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents09.jpeg"
+    - name: "Ten of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["wealth", "legacy", "family", "tradition"]
+      reversed_keywords: ["financial failure", "family conflict", "instability"]
+      description: "The Ten of Pentacles is the card of legacy and family wealth. It signifies security, long-term success, and a feeling of belonging."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents10.jpeg"
+    - name: "Page of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["new opportunities", "student", "manifestation", "ambition"]
+      reversed_keywords: ["laziness", "lack of ambition", "missed opportunity", "poor planning"]
+      description: "The Page of Pentacles is a messenger of new opportunities in career or finance. He represents a grounded and ambitious person with a desire to learn."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents11.jpeg"
+    - name: "Knight of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["hard working", "patient", "reliable", "loyal"]
+      reversed_keywords: ["laziness", "boredom", "stagnant", "irresponsible"]
+      description: "The Knight of Pentacles is a reliable and patient figure. He signifies slow, steady progress, and the dedication to see a project through to the end."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents12.jpeg"
+    - name: "Queen of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["nurturing", "practical", "grounded", "mother figure"]
+      reversed_keywords: ["self-centered", "smothering", "workaholic", "poor financial choices"]
+      description: "The Queen of Pentacles is a practical and nurturing figure. She represents a grounded and generous person who provides stability and comfort."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents13.jpeg"
+    - name: "King of Pentacles"
+      house: "Pentacles"
+      upright_keywords: ["success", "security", "abundance", "provider"]
+      reversed_keywords: ["greedy", "materialistic", "corrupt", "tyrannical"]
+      description: "The King of Pentacles is a master of the material world. He represents a successful and generous leader who provides stability and abundance."
+      elemental_correspondence: "Earth"
+      resourcePath: "cards/tarot/500px-Pents14.jpeg"
