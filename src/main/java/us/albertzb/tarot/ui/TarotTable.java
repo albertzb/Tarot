@@ -37,6 +37,7 @@ public class TarotTable extends javax.swing.JFrame {
      */
     public TarotTable() {
         initComponents();
+        spreadPnl.setLayout(new CenterRowLayout(20));
         deck = readDeck();
         SwingUtilities.invokeLater(() -> {
             CardImageLoader imageLoader = new CardImageLoader(deck);
@@ -71,7 +72,7 @@ public class TarotTable extends javax.swing.JFrame {
         practicalBtn = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
         splitPnl = new javax.swing.JSplitPane();
-        layoutPnl = new javax.swing.JPanel();
+        spreadPnl = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         interpretationPnl = new javax.swing.JEditorPane();
 
@@ -117,9 +118,9 @@ public class TarotTable extends javax.swing.JFrame {
 
         splitPnl.setResizeWeight(0.9);
 
-        layoutPnl.setBackground(new java.awt.Color(51, 0, 51));
-        layoutPnl.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 5, 15, 5));
-        splitPnl.setLeftComponent(layoutPnl);
+        spreadPnl.setBackground(new java.awt.Color(51, 0, 51));
+        spreadPnl.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 5, 15, 5));
+        splitPnl.setLeftComponent(spreadPnl);
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(115, 200));
 
@@ -145,12 +146,12 @@ public class TarotTable extends javax.swing.JFrame {
         DeckStack stack = new DeckStack(deck);
         List<CardImage> images = stack.drawImages(PracticalAdvice.cardCount);
         //show the image in the middle of the table
-        layoutPnl.removeAll();
+        spreadPnl.removeAll();
         for (CardImage image : images) {
-            layoutPnl.add(image);
+            spreadPnl.add(image);
         }
-        layoutPnl.revalidate();
-        layoutPnl.repaint();
+        spreadPnl.revalidate();
+        spreadPnl.repaint();
 
         interpretationPnl.setText("<html><body><h1>Practical advice</h1><p>This may help</p><p id=\"foot\" /></body></html>");
         HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
@@ -170,12 +171,12 @@ public class TarotTable extends javax.swing.JFrame {
         DeckStack stack = new DeckStack(deck);
         List<CardImage> images = stack.drawImages(PastPresentFuture.cardCount);
         //show the image in the middle of the table
-        layoutPnl.removeAll();
+        spreadPnl.removeAll();
         for (CardImage image : images) {
-            layoutPnl.add(image);
+            spreadPnl.add(image);
         }
-        layoutPnl.revalidate();
-        layoutPnl.repaint();
+        spreadPnl.revalidate();
+        spreadPnl.repaint();
 
         interpretationPnl.setText("<html><body><h1>Past-Present-Future</h1><p>This is how the cards see your situation</p><p id=\"foot\" /></body></html>");
         HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
@@ -195,12 +196,12 @@ public class TarotTable extends javax.swing.JFrame {
         DeckStack stack = new DeckStack(deck);
         List<CardImage> images = stack.drawImages(Concern.cardCount);
         //show the image in the middle of the table
-        layoutPnl.removeAll();
+        spreadPnl.removeAll();
         for (CardImage image : images) {
-            layoutPnl.add(image);
+            spreadPnl.add(image);
         }
-        layoutPnl.revalidate();
-        layoutPnl.repaint();
+        spreadPnl.revalidate();
+        spreadPnl.repaint();
 
         interpretationPnl.setText("<html><body><h1>Dealing with your Concern</h1><p>Maybe you can cope this way</p><p id=\"foot\" /></body></html>");
         HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
@@ -226,9 +227,9 @@ public class TarotTable extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.JEditorPane interpretationPnl;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel layoutPnl;
     private javax.swing.JButton ppfBtn;
     private javax.swing.JButton practicalBtn;
     private javax.swing.JSplitPane splitPnl;
+    private javax.swing.JPanel spreadPnl;
     // End of variables declaration//GEN-END:variables
 }
