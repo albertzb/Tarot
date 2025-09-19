@@ -4,34 +4,41 @@
  */
 package us.albertzb.tarot.spreads;
 
+import java.util.List;
+
 /**
  *
  * @author albertzb [albertzb42@gmail.com]
  */
-public class PracticalAdvice {
-    public static final int cardCount = 5;
+public class PracticalAdvice implements Spreadable {
+    private static final int CARD_COUNT = 5;
+    private static final List<String> POSITIONS = List.of(
+            "Past influence",
+            "Present influence",
+            "Major influence",
+            "Advice",
+            "Outcome likley if advice is followed");
+    private static final String TITLE="Practical Advice";
+    private static final String SUB_TITLE = "This may help";
+        
+
+    @Override
+    public int getCardCount() {
+        return CARD_COUNT;
+    }
+
+    @Override
+    public List<String> getPositions() {
+        return POSITIONS;
+    }
+
+    @Override
+    public String getSubTitle() {
+        return SUB_TITLE;
+    }
     
-    public enum Position {
-        PAST(0, "Past influence"),
-        PRESENT(1, "Present influence"),
-        MAJOR(2, "Major influence"),
-        ADVICE(3, "Advice"),
-        OUTCOME(4, "Outcome likley if advice is followed");
-        
-        private final String title;
-        private final int index;
-        
-        Position(int index, String title) {
-            this.index = index;
-            this.title = title;
-        }
-        
-        public int getIndex() {
-            return index;
-        }
-        
-        public String getTitle() {
-            return title;
-        }
+    @Override
+    public String getTitle() {
+        return TITLE;
     }
 }

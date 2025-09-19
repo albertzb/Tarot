@@ -6,6 +6,7 @@ package us.albertzb.tarot.ui;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.IntStream;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
@@ -16,6 +17,7 @@ import us.albertzb.tarot.model.TarotDeck;
 import us.albertzb.tarot.spreads.Concern;
 import us.albertzb.tarot.spreads.PastPresentFuture;
 import us.albertzb.tarot.spreads.PracticalAdvice;
+import us.albertzb.tarot.spreads.Spreadable;
 import us.albertzb.tarot.utils.CardImageLoader;
 import us.albertzb.tarot.utils.DeckStack;
 import us.albertzb.tarot.utils.YamlReader;
@@ -29,6 +31,9 @@ public class TarotTable extends javax.swing.JFrame {
     private static final Logger LOG = LoggerFactory.getLogger(TarotTable.class);
     private static final long serialVersionUID = 1L;
     private static final String CARDS_FILE = "cards/tarot/cards.yml";
+    private static final String P_TEMPLATE = "<html><body><h1>%s</h1><p>%s</p><p id=\"foot\" /></body></html>";
+    private static final String I_TEMPLATE = "<h2>%s</h2><p>%s</p>";
+    private static final String I_WARNING = "Problem when writing interpretation";
 
     private transient final TarotDeck deck;
 
@@ -54,6 +59,31 @@ public class TarotTable extends javax.swing.JFrame {
 
     private TarotDeck readDeck() {
         return YamlReader.read(CARDS_FILE);
+    }
+
+    private void prepareSpread(Spreadable spread) {
+        DeckStack stack = new DeckStack(deck);
+        List<CardImage> images = stack.drawImages(spread.getCardCount());
+        //show the image in the middle of the table
+        spreadPnl.removeAll();
+        for (CardImage image : images) {
+            spreadPnl.add(image);
+        }
+        spreadPnl.revalidate();
+        spreadPnl.repaint();
+
+        interpretationPnl.setText(String.format(P_TEMPLATE, spread.getTitle(), spread.getSubTitle()));
+        HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
+        IntStream.range(0, spread.getPositionCount())
+                .forEachOrdered(i -> {
+                    Element footer = doc.getElement("foot");
+                    String interpretation = String.format(I_TEMPLATE, spread.getPositions().get(i), images.get(i).getInterpretation());
+                    try {
+                        doc.insertBeforeStart(footer, interpretation);
+                    } catch (IOException | BadLocationException ex) {
+                        LOG.warn(I_WARNING, ex);
+                    }
+                });
     }
 
     /**
@@ -122,6 +152,7 @@ public class TarotTable extends javax.swing.JFrame {
         spreadPnl.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 5, 15, 5));
         splitPnl.setLeftComponent(spreadPnl);
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(115, 200));
 
         interpretationPnl.setEditable(false);
@@ -143,77 +174,16 @@ public class TarotTable extends javax.swing.JFrame {
 
     private void practicalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practicalBtnActionPerformed
         //shuffle the cards and take the first card
-        DeckStack stack = new DeckStack(deck);
-        List<CardImage> images = stack.drawImages(PracticalAdvice.cardCount);
-        //show the image in the middle of the table
-        spreadPnl.removeAll();
-        for (CardImage image : images) {
-            spreadPnl.add(image);
-        }
-        spreadPnl.revalidate();
-        spreadPnl.repaint();
+        prepareSpread(new PracticalAdvice());
 
-        interpretationPnl.setText("<html><body><h1>Practical advice</h1><p>This may help</p><p id=\"foot\" /></body></html>");
-        HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
-        for (PracticalAdvice.Position position : PracticalAdvice.Position.values()) {
-            Element footer = doc.getElement("foot");
-            String interpretation = String.format("<h2>%s</h2><p>%s</p>", position.getTitle(), images.get(position.getIndex()).getInterpretation());
-            try {
-                doc.insertBeforeStart(footer, interpretation);
-            } catch (IOException | BadLocationException ex) {
-                LOG.warn("Problem when writing interpretation", ex);
-            }
-        }
     }//GEN-LAST:event_practicalBtnActionPerformed
 
     private void ppfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppfBtnActionPerformed
-        //shuffle the cards and take the first card
-        DeckStack stack = new DeckStack(deck);
-        List<CardImage> images = stack.drawImages(PastPresentFuture.cardCount);
-        //show the image in the middle of the table
-        spreadPnl.removeAll();
-        for (CardImage image : images) {
-            spreadPnl.add(image);
-        }
-        spreadPnl.revalidate();
-        spreadPnl.repaint();
-
-        interpretationPnl.setText("<html><body><h1>Past-Present-Future</h1><p>This is how the cards see your situation</p><p id=\"foot\" /></body></html>");
-        HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
-        for (PastPresentFuture.Position position : PastPresentFuture.Position.values()) {
-            Element footer = doc.getElement("foot");
-            String interpretation = String.format("<h2>%s</h2><p>%s</p>", position.getTitle(), images.get(position.getIndex()).getInterpretation());
-            try {
-                doc.insertBeforeStart(footer, interpretation);
-            } catch (IOException | BadLocationException ex) {
-                LOG.warn("Problem when writing interpretation", ex);
-            }
-        }
+        prepareSpread(new PastPresentFuture());
     }//GEN-LAST:event_ppfBtnActionPerformed
 
     private void concernBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concernBtnActionPerformed
-                //shuffle the cards and take the first card
-        DeckStack stack = new DeckStack(deck);
-        List<CardImage> images = stack.drawImages(Concern.cardCount);
-        //show the image in the middle of the table
-        spreadPnl.removeAll();
-        for (CardImage image : images) {
-            spreadPnl.add(image);
-        }
-        spreadPnl.revalidate();
-        spreadPnl.repaint();
-
-        interpretationPnl.setText("<html><body><h1>Dealing with your Concern</h1><p>Maybe you can cope this way</p><p id=\"foot\" /></body></html>");
-        HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
-        for (Concern.Position position : Concern.Position.values()) {
-            Element footer = doc.getElement("foot");
-            String interpretation = String.format("<h2>%s</h2><p>%s</p>", position.getTitle(), images.get(position.getIndex()).getInterpretation());
-            try {
-                doc.insertBeforeStart(footer, interpretation);
-            } catch (IOException | BadLocationException ex) {
-                LOG.warn("Problem when writing interpretation", ex);
-            }
-        }
+        prepareSpread(new Concern());
     }//GEN-LAST:event_concernBtnActionPerformed
 
     /**

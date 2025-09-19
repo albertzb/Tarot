@@ -4,32 +4,35 @@
  */
 package us.albertzb.tarot.spreads;
 
+import java.util.List;
+
 /**
  *
  * @author albertzb [albertzb42@gmail.com]
  */
-public class PastPresentFuture {
-    public static final int cardCount = 3;
+public class PastPresentFuture implements Spreadable {
+    private static final int CARD_COUNT = 3;
+    private static final List<String> POSITIONS = List.of("What lays in the past", "Your present situation", "What the future may hold");
+    private static final String TITLE = "Past-Present-Future";
+    private static final String  SUB_TITLE = "This is how the cards see your situation";
+
+    @Override
+    public int getCardCount() {
+        return CARD_COUNT;
+    }
+
+    @Override
+    public List<String> getPositions() {
+        return POSITIONS;
+    }
+
+    @Override
+    public String getSubTitle() {
+        return SUB_TITLE;
+    }
     
-    public enum Position {
-        PAST(0, "What lays in the past"),
-        PRESENT(1, "Your present situation"),
-        FUTURE(2, "What the future may hold");
-        
-        private final String title;
-        private final int index;
-        
-        Position(int index, String title) {
-            this.index = index;
-            this.title = title;
-        }
-        
-        public int getIndex() {
-            return index;
-        }
-        
-        public String getTitle() {
-            return title;
-        }
+    @Override
+    public String getTitle() {
+        return TITLE;
     }
 }
