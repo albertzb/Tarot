@@ -4,6 +4,9 @@
  */
 package us.albertzb.tarot.ui;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -35,7 +38,9 @@ public class TarotTable extends javax.swing.JFrame {
     private static final String I_TEMPLATE = "<h2>%s</h2><p>%s</p>";
     private static final String I_WARNING = "Problem when writing interpretation";
 
-    private transient final TarotDeck deck;
+    private transient final DeckStack stack;
+    private transient Spreadable spread;
+    private transient List<CardImage> images;
 
     /**
      * Creates new form TarotTable
@@ -43,11 +48,12 @@ public class TarotTable extends javax.swing.JFrame {
     public TarotTable() {
         initComponents();
         spreadPnl.setLayout(new CenterRowLayout(20));
-        deck = readDeck();
+        TarotDeck deck = readDeck();
         SwingUtilities.invokeLater(() -> {
             CardImageLoader imageLoader = new CardImageLoader(deck);
             imageLoader.load();
         });
+        stack = new DeckStack(deck);
     }
 
     private void closeFrame() {
@@ -62,8 +68,8 @@ public class TarotTable extends javax.swing.JFrame {
     }
 
     private void prepareSpread(Spreadable spread) {
-        DeckStack stack = new DeckStack(deck);
-        List<CardImage> images = stack.drawImages(spread.getCardCount());
+        this.spread = spread;
+        images = stack.drawImages(spread.getCardCount());
         //show the image in the middle of the table
         spreadPnl.removeAll();
         for (CardImage image : images) {
@@ -100,6 +106,7 @@ public class TarotTable extends javax.swing.JFrame {
         ppfBtn = new javax.swing.JButton();
         concernBtn = new javax.swing.JButton();
         practicalBtn = new javax.swing.JButton();
+        copyBtn = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
         splitPnl = new javax.swing.JSplitPane();
         spreadPnl = new javax.swing.JPanel();
@@ -135,6 +142,14 @@ public class TarotTable extends javax.swing.JFrame {
             }
         });
         buttonPnl.add(practicalBtn);
+
+        copyBtn.setText("Copy");
+        copyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyBtnActionPerformed(evt);
+            }
+        });
+        buttonPnl.add(copyBtn);
 
         closeBtn.setText("Close");
         closeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -173,9 +188,7 @@ public class TarotTable extends javax.swing.JFrame {
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void practicalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practicalBtnActionPerformed
-        //shuffle the cards and take the first card
         prepareSpread(new PracticalAdvice());
-
     }//GEN-LAST:event_practicalBtnActionPerformed
 
     private void ppfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppfBtnActionPerformed
@@ -186,6 +199,30 @@ public class TarotTable extends javax.swing.JFrame {
         prepareSpread(new Concern());
     }//GEN-LAST:event_concernBtnActionPerformed
 
+    private void copyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyBtnActionPerformed
+        if (spread == null) {
+            return;
+        }
+        final StringBuilder sb = new StringBuilder(100);
+        sb.append("#")
+                .append(spread.getTitle())
+                .append("\n\n")
+                .append(spread.getSubTitle())
+                .append("\n\n");
+
+        IntStream.range(0, spread.getPositionCount())
+                .forEachOrdered(i -> {
+                    sb.append("##")
+                            .append(spread.getPositions().get(i))
+                            .append("\n\n")
+                            .append(images.get(i).getInterpretation())
+                            .append("\n\n");
+                });
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(new StringSelection(sb.toString()), null);
+    }//GEN-LAST:event_copyBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -194,6 +231,7 @@ public class TarotTable extends javax.swing.JFrame {
     private javax.swing.JPanel buttonPnl;
     private javax.swing.JButton closeBtn;
     private javax.swing.JButton concernBtn;
+    private javax.swing.JButton copyBtn;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JEditorPane interpretationPnl;
     private javax.swing.JScrollPane jScrollPane1;

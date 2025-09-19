@@ -17,7 +17,7 @@ public class PracticalAdvice implements Spreadable {
             "Present influence",
             "Major influence",
             "Advice",
-            "Outcome likley if advice is followed");
+            "Outcome likely if advice is followed");
     private static final String TITLE="Practical Advice";
     private static final String SUB_TITLE = "This may help";
         
