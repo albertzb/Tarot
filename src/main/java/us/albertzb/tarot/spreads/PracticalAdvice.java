@@ -20,6 +20,13 @@ public class PracticalAdvice implements Spreadable {
             "Outcome likely if advice is followed");
     private static final String TITLE="Practical Advice";
     private static final String SUB_TITLE = "This may help";
+    private static final String PROMPT = """
+                                         Using the outline below, write a practical advice
+                                         for a person in 2nd person singular. Do not refer
+                                         to the outline. Do not add an introduction.
+                                         Do not create a document.
+                                         \"""
+                                         """;
         
 
     @Override
@@ -30,6 +37,11 @@ public class PracticalAdvice implements Spreadable {
     @Override
     public List<String> getPositions() {
         return POSITIONS;
+    }
+
+    @Override
+    public String getPrompt() {
+        return PROMPT;
     }
 
     @Override

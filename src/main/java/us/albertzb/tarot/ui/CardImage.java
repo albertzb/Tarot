@@ -140,4 +140,8 @@ public class CardImage extends JComponent {
         }
         return String.join(", ", card.getUpright_keywords());
     }
+    
+    public String getDescription() {
+        return card.getDescription();
+    }
 }

@@ -16,6 +16,8 @@ public interface Spreadable {
 
     List<String> getPositions();
     
+    String getPrompt();
+    
     default int getPositionCount() {
         return getPositions().size();
     }

@@ -15,6 +15,14 @@ public class Concern implements Spreadable {
     private static final List<String> POSITIONS = List.of("Situation","Obstacle","Action recommended","Outcome");
     private static final String TITLE = "Concern";
     private static final String SUB_TITLE = "Maybe you can cope with your concern this way";
+    private static final String PROMPT = """
+                                         Using the outline below, write a supportive explanation
+                                         how a person can deal with the current practical,
+                                         everyday problem. Do not refer to the outline. Stay
+                                         professional, do not become intimate. Do not add an introduction.
+                                         Do not create a document.
+                                         \"""
+                                         """;
 
     @Override
     public int getCardCount() {
@@ -24,6 +32,11 @@ public class Concern implements Spreadable {
     @Override
     public List<String> getPositions() {
         return POSITIONS;
+    }
+
+    @Override
+    public String getPrompt() {
+        return PROMPT;
     }
     
     @Override

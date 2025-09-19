@@ -83,7 +83,7 @@ public class TarotTable extends javax.swing.JFrame {
         IntStream.range(0, spread.getPositionCount())
                 .forEachOrdered(i -> {
                     Element footer = doc.getElement("foot");
-                    String interpretation = String.format(I_TEMPLATE, spread.getPositions().get(i), images.get(i).getInterpretation());
+                    String interpretation = String.format(I_TEMPLATE, spread.getPositions().get(i), images.get(i).getDescription());
                     try {
                         doc.insertBeforeStart(footer, interpretation);
                     } catch (IOException | BadLocationException ex) {
@@ -143,7 +143,7 @@ public class TarotTable extends javax.swing.JFrame {
         });
         buttonPnl.add(practicalBtn);
 
-        copyBtn.setText("Copy");
+        copyBtn.setText("Copy Prompt");
         copyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyBtnActionPerformed(evt);
@@ -204,6 +204,8 @@ public class TarotTable extends javax.swing.JFrame {
             return;
         }
         final StringBuilder sb = new StringBuilder(100);
+        sb.append(spread.getPrompt()).append("\n");
+        
         sb.append("#")
                 .append(spread.getTitle())
                 .append("\n\n")
