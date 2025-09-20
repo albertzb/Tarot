@@ -34,6 +34,16 @@ public class Env {
         throw new IllegalStateException("None of " + String.join(", ", names) + " were defined as environment variables or properties.");
     }
     
+    public static boolean hasVar(String... names) {
+        for(String name : names) {
+            String variable = getVar(name);
+            if(!variable.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static String getVar(String name, String defValue) {
         String variable = System.getenv(name);
         if(variable == null || variable.isEmpty()) {
