@@ -1,0 +1,34 @@
+# NetBeans IDE and secrets
+/nbproject/private/
+nbactions.xml
+
+# Core project files (do not ignore)
+!/nbproject/project.properties
+!/nbproject/project.xml
+
+# Build artifacts and dependencies
+/build/
+/dist/
+*.jar
+*.war
+*.ear
+/target/
+/classes/
+nb-ext.properties
+
+# Maven/Gradle specific files
+.classpath
+.project
+.settings/
+.idea/
+.gradle/
+!/gradlew
+!/gradlew.bat
+
+# Other common files
+*.log
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
