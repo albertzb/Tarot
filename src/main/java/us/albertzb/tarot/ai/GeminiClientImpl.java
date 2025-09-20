@@ -13,8 +13,6 @@ import com.google.genai.types.Content;
 import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.Part;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +26,8 @@ import us.albertzb.tarot.utils.Env;
 public class GeminiClientImpl implements GenerativeAiClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(GeminiClientImpl.class);
-    private static final String ENV_KEY = "GEMINI_API_KEY";
+    private static final String ENV_KEY1 = "GOOGLE_API_KEY";
+    private static final String ENV_KEY2 = "GEMINI_API_KEY";
     private static final String ENV_MODEL = "GEMINI_MODEL";
 
     private final Client genAiClient;
@@ -45,13 +44,16 @@ public class GeminiClientImpl implements GenerativeAiClient {
      * @return 
      */
     public static GeminiClientImpl create() {
-        String apiKey = Env.getRequiredVar(ENV_KEY);
+        String apiKey = Env.getRequiredVarTry(ENV_KEY1, ENV_KEY2);
         String model = Env.getVar(ENV_MODEL, "gemini-2.5-flash");
         return new GeminiClientImpl(apiKey, model);
     }
 
     @Override
-    public Optional<String> generateText(String prompt, Map<String, Object> options) {
+    @SuppressWarnings("AssignmentToMethodParameter")
+    public Optional<String> generateText(String prompt, Map<String, Object> nullableOptions) {
+        Map<String,Object> options = nullableOptions == null ? Collections.emptyMap() : nullableOptions;
+        LOG.debug("Options are " + (options.isEmpty() ? "empty" : options.toString()));
         try {
             GenerateContentConfig.Builder builder = GenerateContentConfig
                     .builder();
@@ -74,15 +76,16 @@ public class GeminiClientImpl implements GenerativeAiClient {
                 }
             }
             // Use the Google Gen AI SDK to call the generateContent API
+            LOG.debug("Asked " + modelName + ": " + prompt);
             GenerateContentResponse response = genAiClient.models.generateContent(modelName, prompt, builder.build());
-
+            LOG.debug("Response " + (response == null ? "null" : response.text()));
             // Check if the response contains text and return it
             if (response != null && response.text() != null) {
                 return Optional.of(response.text());
             }
         } catch (Exception e) {
             // Log the exception and return an empty Optional
-            LOG.error("Error generating text with Gemini: " + e.getMessage());
+            LOG.error("Error generating text with Gemini: " + e.getClass().getName() + ": " + e.getMessage());
         }
         return Optional.empty();
     }

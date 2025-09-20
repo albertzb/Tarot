@@ -24,6 +24,16 @@ public class Env {
         return value;
     }
     
+    public static String getRequiredVarTry(String... names) {
+        for(String name : names) {
+            String variable = getVar(name);
+            if(!variable.isEmpty()) {
+                return variable;
+            }
+        }
+        throw new IllegalStateException("None of " + String.join(", ", names) + " were defined as environment variables or properties.");
+    }
+    
     public static String getVar(String name, String defValue) {
         String variable = System.getenv(name);
         if(variable == null || variable.isEmpty()) {
