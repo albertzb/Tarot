@@ -8,9 +8,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -47,11 +47,12 @@ public class TarotTable extends javax.swing.JFrame {
     private static final String BOLD_INJ = "<b>$1</b>";
     private static final String IT_REG = "\\*(.*)?\\*";
     private static final String IT_INJ = "<i>$1</i>";
+    private static final int ROW_HEIGHT = 32;
 
     private transient final DeckStack stack;
     private transient Spreadable spread;
     private transient List<CardImage> images;
-    private boolean isAISupported;
+    private final boolean isAISupported;
 
     /**
      * Creates new form TarotTable
@@ -69,7 +70,14 @@ public class TarotTable extends javax.swing.JFrame {
         });
         stack = new DeckStack(deck);
         isAISupported = Env.hasVar("GOOGLE_API_KEY", "GEMINI_API_KEY");
-        copyBtn.setVisible(!isAISupported);
+        if (isAISupported) {
+            actionBtn.setText("Lay The Cards");
+        } else {
+            actionBtn.setText("Copy Prompt");
+        }
+        SwingUtilities.invokeLater(() -> {
+            prepareSpread(new PastPresentFuture());
+        });
     }
 
     private void closeFrame() {
@@ -83,11 +91,85 @@ public class TarotTable extends javax.swing.JFrame {
         return YamlReader.read(CARDS_FILE);
     }
 
-    private void prepareSpread(Spreadable spread) {
-        this.spread = spread;
-        images = stack.drawImages(spread.getCardCount());
-        //show the image in the middle of the table
+    private void clearTable() {
         spreadPnl.removeAll();
+        interpretationPnl.setText("");
+        SwingUtilities.invokeLater(() -> {
+            spreadPnl.revalidate();
+            spreadPnl.repaint();
+        });
+    }
+
+    private void prepareSpread(Spreadable spread) {
+        clearTable();
+        this.spread = spread;
+        questionLbl.setText(spread.getQuestion());
+    }
+
+    private void doTheCards() {
+        layCards();
+        if (isAISupported) {
+            runInterpretation();
+        } else {
+            copyPrompt();
+        }
+    }
+
+    private void copyPrompt() {
+        if (spread == null) {
+            return;
+        }
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(new StringSelection(getPrompt("a  person")), null);
+
+    }
+
+    private void runInterpretation() {
+        waitPnl.setVisible(true);
+        new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
+                GenerativeAiClient client = GeminiClientImpl.create();
+                String question = spread.getConversionPrompt() + "\n" + questionTxt.getText();
+
+                StringBuilder sb = new StringBuilder("");
+                client.generateText(question, null).ifPresent(iStr -> {
+                    sb.append(iStr);
+                });
+                if (sb.isEmpty()) {
+                    sb.append("a person");
+                }
+                client.generateText(getPrompt(sb.toString()), null).ifPresent(iStr -> {
+                    Element footer = doc.getElement("foot");
+                    String hStr = iStr
+                            .replaceAll(BOLD_REG, BOLD_INJ)
+                            .replaceAll(IT_REG, IT_INJ)
+                            .replaceAll("\n", "<br>");
+
+                    String interpretation = String.format(I_TEMPLATE, "Interpretation", hStr);
+                    try {
+                        doc.insertBeforeStart(footer, interpretation);
+                    } catch (IOException | BadLocationException ex) {
+                        LOG.warn(I_WARNING, ex);
+                    }
+                });
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                waitPnl.setVisible(false);
+            }
+        }.execute();
+    }
+
+    private void layCards() {
+        //show the image in the middle of the table
+        clearTable();
+
+        images = stack.drawImages(spread.getCardCount());
         for (CardImage image : images) {
             spreadPnl.add(image);
         }
@@ -107,43 +189,15 @@ public class TarotTable extends javax.swing.JFrame {
                     }
                 });
 
-        if (isAISupported) {
-            waitPnl.setVisible(true);
-            new SwingWorker<Void, Void>() {
-                @Override
-                protected Void doInBackground() throws Exception {
-                    GenerativeAiClient client = GeminiClientImpl.create();
-                    client.generateText(getPrompt(), null).ifPresent(iStr -> {
-                        Element footer = doc.getElement("foot");
-                        String hStr = iStr
-                                .replaceAll(BOLD_REG, BOLD_INJ)
-                                .replaceAll(IT_REG, IT_INJ)
-                                .replaceAll("\n", "<br>");
-                                
-                        String interpretation = String.format(I_TEMPLATE, "Interpretation", hStr);
-                        try {
-                            doc.insertBeforeStart(footer, interpretation);
-                        } catch (IOException | BadLocationException ex) {
-                            LOG.warn(I_WARNING, ex);
-                        }
-                    });
-                    return null;
-                }
-
-                @Override
-                protected void done() {
-                    waitPnl.setVisible(false);
-                }
-            }.execute();
-        }
     }
 
-    String getPrompt() {
+    String getPrompt(String personalizedText) {
         if (spread == null) {
             return "Tell me a joke about a psychic who can't work without GenAI.";
         }
         final StringBuilder sb = new StringBuilder(100);
-        sb.append(spread.getPrompt()).append("\n");
+
+        sb.append(spread.getPrompt().replace("a person", personalizedText)).append("\n");
 
         sb.append("#")
                 .append(spread.getTitle())
@@ -163,6 +217,15 @@ public class TarotTable extends javax.swing.JFrame {
         return sb.toString();
     }
 
+    private int[] getColumnWidths() {
+
+        return new int[]{controlPnl.getWidth()};
+    }
+
+    private int[] getRowHeights() {
+        return new int[]{ROW_HEIGHT, ROW_HEIGHT, controlPnl.getHeight() - 2 * ROW_HEIGHT};
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,21 +234,27 @@ public class TarotTable extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonPnl = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        ppfBtn = new javax.swing.JButton();
-        concernBtn = new javax.swing.JButton();
-        practicalBtn = new javax.swing.JButton();
-        copyBtn = new javax.swing.JButton();
+        actionBtn = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
         splitPnl = new javax.swing.JSplitPane();
         spreadPnl = new javax.swing.JPanel();
+        controlPnl = new javax.swing.JPanel();
+        questionLbl = new javax.swing.JLabel();
+        questionTxt = new javax.swing.JTextField();
         layeredPane = new javax.swing.JLayeredPane();
         interpretationSrl = new javax.swing.JScrollPane();
         interpretationPnl = new javax.swing.JEditorPane();
         waitPnl = new javax.swing.JPanel();
         waitLbl = new javax.swing.JLabel();
+        menuBar = new javax.swing.JMenuBar();
+        spreadMnu = new javax.swing.JMenu();
+        pppMni = new javax.swing.JMenuItem();
+        concernMni = new javax.swing.JMenuItem();
+        practicalMni = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("The Tarot Table");
@@ -193,37 +262,13 @@ public class TarotTable extends javax.swing.JFrame {
         buttonPnl.setLayout(new javax.swing.BoxLayout(buttonPnl, javax.swing.BoxLayout.LINE_AXIS));
         buttonPnl.add(filler1);
 
-        ppfBtn.setText("Past Present Future");
-        ppfBtn.addActionListener(new java.awt.event.ActionListener() {
+        actionBtn.setText("Action");
+        actionBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ppfBtnActionPerformed(evt);
+                actionBtnActionPerformed(evt);
             }
         });
-        buttonPnl.add(ppfBtn);
-
-        concernBtn.setText("Concern");
-        concernBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                concernBtnActionPerformed(evt);
-            }
-        });
-        buttonPnl.add(concernBtn);
-
-        practicalBtn.setText("Practical Advise");
-        practicalBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                practicalBtnActionPerformed(evt);
-            }
-        });
-        buttonPnl.add(practicalBtn);
-
-        copyBtn.setText("Copy Prompt");
-        copyBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                copyBtnActionPerformed(evt);
-            }
-        });
-        buttonPnl.add(copyBtn);
+        buttonPnl.add(actionBtn);
 
         closeBtn.setText("Close");
         closeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +285,31 @@ public class TarotTable extends javax.swing.JFrame {
         spreadPnl.setBackground(new java.awt.Color(51, 0, 51));
         spreadPnl.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 5, 15, 5));
         splitPnl.setLeftComponent(spreadPnl);
+
+        java.awt.GridBagLayout controlPnlLayout = new java.awt.GridBagLayout();
+        controlPnlLayout.columnWidths = getColumnWidths();
+        controlPnlLayout.rowHeights = getRowHeights();
+        controlPnl.setLayout(controlPnlLayout);
+
+        questionLbl.setAlignmentX(0.5F);
+        questionLbl.setPreferredSize(new java.awt.Dimension(64, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        controlPnl.add(questionLbl, gridBagConstraints);
+
+        questionTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                questionTxtActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        controlPnl.add(questionTxt, gridBagConstraints);
 
         layeredPane.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -270,9 +340,47 @@ public class TarotTable extends javax.swing.JFrame {
         layeredPane.add(waitPnl);
         waitPnl.setBounds(0, 0, 210, 210);
 
-        splitPnl.setRightComponent(layeredPane);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        controlPnl.add(layeredPane, gridBagConstraints);
+
+        splitPnl.setRightComponent(controlPnl);
 
         getContentPane().add(splitPnl, java.awt.BorderLayout.CENTER);
+
+        spreadMnu.setText("Spread");
+
+        pppMni.setText("Past - Present - Future");
+        pppMni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pppMniActionPerformed(evt);
+            }
+        });
+        spreadMnu.add(pppMni);
+
+        concernMni.setText("Concern");
+        concernMni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                concernMniActionPerformed(evt);
+            }
+        });
+        spreadMnu.add(concernMni);
+
+        practicalMni.setText("Practical Advice");
+        practicalMni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                practicalMniActionPerformed(evt);
+            }
+        });
+        spreadMnu.add(practicalMni);
+
+        menuBar.add(spreadMnu);
+
+        setJMenuBar(menuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -281,49 +389,53 @@ public class TarotTable extends javax.swing.JFrame {
         closeFrame();
     }//GEN-LAST:event_closeBtnActionPerformed
 
-    private void practicalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practicalBtnActionPerformed
-        prepareSpread(new PracticalAdvice());
-    }//GEN-LAST:event_practicalBtnActionPerformed
-
-    private void ppfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppfBtnActionPerformed
-        prepareSpread(new PastPresentFuture());
-    }//GEN-LAST:event_ppfBtnActionPerformed
-
-    private void concernBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concernBtnActionPerformed
-        prepareSpread(new Concern());
-    }//GEN-LAST:event_concernBtnActionPerformed
-
-    private void copyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyBtnActionPerformed
-        if (spread == null) {
-            return;
-        }
-
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(new StringSelection(getPrompt()), null);
-    }//GEN-LAST:event_copyBtnActionPerformed
-
     private void layeredPaneComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_layeredPaneComponentResized
         Dimension size = layeredPane.getSize();
         interpretationSrl.setBounds(0, 0, size.width, size.height);
         waitPnl.setBounds(0, 0, size.width, size.height);
     }//GEN-LAST:event_layeredPaneComponentResized
 
+    private void pppMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pppMniActionPerformed
+        prepareSpread(new PastPresentFuture());
+    }//GEN-LAST:event_pppMniActionPerformed
+
+    private void concernMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concernMniActionPerformed
+        prepareSpread(new Concern());
+    }//GEN-LAST:event_concernMniActionPerformed
+
+    private void practicalMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_practicalMniActionPerformed
+        prepareSpread(new PracticalAdvice());
+    }//GEN-LAST:event_practicalMniActionPerformed
+
+    private void questionTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questionTxtActionPerformed
+        doTheCards();
+    }//GEN-LAST:event_questionTxtActionPerformed
+
+    private void actionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionBtnActionPerformed
+        doTheCards();
+    }//GEN-LAST:event_actionBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actionBtn;
     private javax.swing.JPanel buttonPnl;
     private javax.swing.JButton closeBtn;
-    private javax.swing.JButton concernBtn;
-    private javax.swing.JButton copyBtn;
+    private javax.swing.JMenuItem concernMni;
+    private javax.swing.JPanel controlPnl;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JEditorPane interpretationPnl;
     private javax.swing.JScrollPane interpretationSrl;
     private javax.swing.JLayeredPane layeredPane;
-    private javax.swing.JButton ppfBtn;
-    private javax.swing.JButton practicalBtn;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem pppMni;
+    private javax.swing.JMenuItem practicalMni;
+    private javax.swing.JLabel questionLbl;
+    private javax.swing.JTextField questionTxt;
     private javax.swing.JSplitPane splitPnl;
+    private javax.swing.JMenu spreadMnu;
     private javax.swing.JPanel spreadPnl;
     private javax.swing.JLabel waitLbl;
     private javax.swing.JPanel waitPnl;

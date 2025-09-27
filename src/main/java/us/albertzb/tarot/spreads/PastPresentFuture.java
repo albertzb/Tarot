@@ -14,7 +14,16 @@ public class PastPresentFuture implements Spreadable {
     private static final int CARD_COUNT = 3;
     private static final List<String> POSITIONS = List.of("What lays in the past", "Your present situation", "What the future may hold");
     private static final String TITLE = "Past-Present-Future";
+    private static final String QUESTION = "What's on your mind? I'm here to listen.";
     private static final String  SUB_TITLE = "This may help you find a new perspective.";
+    private static final String CONVERSION_PROMPT = """
+                                                    Convert the below text to third person singular,
+                                                    completing the sentence 'a person who wants to learn about the past present and future of ...'.
+                                                    Reply with 'a person who want to learn about the past present and future of themself.' if
+                                                    the text does not make sense.
+                                                    Give only the conversion result.
+                                                    \"""
+                                                    """;
     private static final String PROMPT = """
                                          Using the outline below, write a discussion of the situation
                                          a person is in. Write in second person singular. Do not 
@@ -29,6 +38,11 @@ public class PastPresentFuture implements Spreadable {
     }
 
     @Override
+    public String getConversionPrompt() {
+        return CONVERSION_PROMPT;
+    }
+
+    @Override
     public List<String> getPositions() {
         return POSITIONS;
     }
@@ -36,6 +50,11 @@ public class PastPresentFuture implements Spreadable {
     @Override
     public String getPrompt() {
         return PROMPT;
+    }
+
+    @Override
+    public String getQuestion() {
+        return QUESTION;
     }
 
     @Override

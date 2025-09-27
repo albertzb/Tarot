@@ -19,7 +19,16 @@ public class PracticalAdvice implements Spreadable {
             "Advice",
             "Outcome likely if advice is followed");
     private static final String TITLE="Practical Advice";
+    private static final String QUESTION = "What can I help you with?";
     private static final String SUB_TITLE = "This may help";
+    private static final String CONVERSION_PROMPT = """
+                                                    Convert the below text to third person singular,
+                                                    completing the sentence 'A person who wants practical advice about ...'.
+                                                    Reply with 'a person who want some general, practical advice.' if
+                                                    the text does not make sense.
+                                                    Give only the conversion result.
+                                                    \"""
+                                                    """;
     private static final String PROMPT = """
                                          Using the outline below, write a practical advice
                                          for a person in 2nd person singular. Do not refer
@@ -35,6 +44,11 @@ public class PracticalAdvice implements Spreadable {
     }
 
     @Override
+    public String getConversionPrompt() {
+        return CONVERSION_PROMPT;
+    }
+
+    @Override
     public List<String> getPositions() {
         return POSITIONS;
     }
@@ -42,6 +56,11 @@ public class PracticalAdvice implements Spreadable {
     @Override
     public String getPrompt() {
         return PROMPT;
+    }
+
+    @Override
+    public String getQuestion() {
+        return QUESTION;
     }
 
     @Override

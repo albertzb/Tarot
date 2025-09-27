@@ -13,6 +13,8 @@ import java.util.List;
 public interface Spreadable {
 
     int getCardCount();
+    
+    String getConversionPrompt();
 
     List<String> getPositions();
     
@@ -21,6 +23,8 @@ public interface Spreadable {
     default int getPositionCount() {
         return getPositions().size();
     }
+    
+    String getQuestion();
     
     String getSubTitle();
     
