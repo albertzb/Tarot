@@ -1,6 +1,7 @@
 # NetBeans IDE and secrets
 /nbproject/private/
 nbactions.xml
+nb-configuration.xml
 
 # Core project files (do not ignore)
 !/nbproject/project.properties
