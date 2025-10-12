@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -22,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import us.albertzb.tarot.ai.GeminiClientImpl;
 import us.albertzb.tarot.ai.GenerativeAiClient;
 import us.albertzb.tarot.model.TarotDeck;
+import us.albertzb.tarot.spreads.Affirmation;
+import us.albertzb.tarot.spreads.Balance;
 import us.albertzb.tarot.spreads.Concern;
 import us.albertzb.tarot.spreads.PastPresentFuture;
 import us.albertzb.tarot.spreads.PracticalAdvice;
@@ -103,6 +104,10 @@ public class TarotTable extends javax.swing.JFrame {
     private void prepareSpread(Spreadable spread) {
         clearTable();
         this.spread = spread;
+
+        questionLbl.setVisible(spread.hasInput());
+        questionTxt.setVisible(spread.hasInput());
+
         questionLbl.setText(spread.getQuestion());
     }
 
@@ -132,14 +137,16 @@ public class TarotTable extends javax.swing.JFrame {
             protected Void doInBackground() throws Exception {
                 HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
                 GenerativeAiClient client = GeminiClientImpl.create();
-                String question = spread.getConversionPrompt() + "\n" + questionTxt.getText();
 
                 StringBuilder sb = new StringBuilder("");
-                client.generateText(question, null).ifPresent(iStr -> {
-                    sb.append(iStr);
-                });
-                if (sb.isEmpty()) {
-                    sb.append("a person");
+                String question = spread.getConversionPrompt() + "\n" + questionTxt.getText();
+                if (spread.hasInput()) {
+                    client.generateText(question, null).ifPresent(iStr -> {
+                        sb.append(iStr);
+                    });
+                    if (sb.isEmpty()) {
+                        sb.append("a person");
+                    }
                 }
                 client.generateText(getPrompt(sb.toString()), null).ifPresent(iStr -> {
                     Element footer = doc.getElement("foot");
@@ -252,6 +259,8 @@ public class TarotTable extends javax.swing.JFrame {
         waitLbl = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         spreadMnu = new javax.swing.JMenu();
+        affirmMni = new javax.swing.JMenuItem();
+        balanceMni = new javax.swing.JMenuItem();
         pppMni = new javax.swing.JMenuItem();
         concernMni = new javax.swing.JMenuItem();
         practicalMni = new javax.swing.JMenuItem();
@@ -354,6 +363,22 @@ public class TarotTable extends javax.swing.JFrame {
 
         spreadMnu.setText("Spread");
 
+        affirmMni.setText("Affirmation");
+        affirmMni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                affirmMniActionPerformed(evt);
+            }
+        });
+        spreadMnu.add(affirmMni);
+
+        balanceMni.setText("The Balance");
+        balanceMni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                balanceMniActionPerformed(evt);
+            }
+        });
+        spreadMnu.add(balanceMni);
+
         pppMni.setText("Past - Present - Future");
         pppMni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,12 +440,22 @@ public class TarotTable extends javax.swing.JFrame {
         doTheCards();
     }//GEN-LAST:event_actionBtnActionPerformed
 
+    private void affirmMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_affirmMniActionPerformed
+        prepareSpread(new Affirmation());
+    }//GEN-LAST:event_affirmMniActionPerformed
+
+    private void balanceMniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceMniActionPerformed
+        prepareSpread(new Balance());
+    }//GEN-LAST:event_balanceMniActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actionBtn;
+    private javax.swing.JMenuItem affirmMni;
+    private javax.swing.JMenuItem balanceMni;
     private javax.swing.JPanel buttonPnl;
     private javax.swing.JButton closeBtn;
     private javax.swing.JMenuItem concernMni;

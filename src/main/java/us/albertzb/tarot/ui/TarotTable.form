@@ -9,6 +9,22 @@
             <Property name="text" type="java.lang.String" value="Spread"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="affirmMni">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Affirmation"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="affirmMniActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="balanceMni">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="The Balance"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="balanceMniActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="pppMni">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Past - Present - Future"/>

@@ -30,4 +30,8 @@ public interface Spreadable {
     
     String getTitle();
     
+    default boolean hasInput() {
+        return !(getQuestion().isBlank() || getConversionPrompt().isBlank());
+    }
+    
 }
