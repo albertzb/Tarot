@@ -246,7 +246,7 @@
                           <Color blue="cc" green="0" red="ff" type="rgb"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/images/waiting.gif"/>
+                          <Image iconType="3" name="/images/waiting_t.gif"/>
                         </Property>
                       </Properties>
                     </Component>

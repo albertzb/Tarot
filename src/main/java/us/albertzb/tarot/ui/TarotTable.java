@@ -342,7 +342,7 @@ public class TarotTable extends javax.swing.JFrame {
 
         waitLbl.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         waitLbl.setForeground(new java.awt.Color(255, 0, 204));
-        waitLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/waiting.gif"))); // NOI18N
+        waitLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/waiting_t.gif"))); // NOI18N
         waitPnl.add(waitLbl);
 
         layeredPane.setLayer(waitPnl, javax.swing.JLayeredPane.PALETTE_LAYER);
