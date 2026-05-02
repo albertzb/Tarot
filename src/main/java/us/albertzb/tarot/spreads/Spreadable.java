@@ -34,4 +34,8 @@ public interface Spreadable {
         return !(getQuestion().isBlank() || getConversionPrompt().isBlank());
     }
     
+    default boolean hasConversion() {
+        return !getConversionPrompt().isBlank();
+    }
+    
 }

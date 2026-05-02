@@ -18,8 +18,9 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import us.albertzb.tarot.ai.GeminiClientImpl;
-import us.albertzb.tarot.ai.GenerativeAiClient;
+import us.albertzb.tarot.ai.AIServiceFactory;
+import us.albertzb.tarot.ai.TarotAiService;
+import us.albertzb.tarot.exception.TarotException;
 import us.albertzb.tarot.model.TarotDeck;
 import us.albertzb.tarot.spreads.Affirmation;
 import us.albertzb.tarot.spreads.Balance;
@@ -29,8 +30,8 @@ import us.albertzb.tarot.spreads.PracticalAdvice;
 import us.albertzb.tarot.spreads.Spreadable;
 import us.albertzb.tarot.utils.CardImageLoader;
 import us.albertzb.tarot.utils.DeckStack;
-import us.albertzb.tarot.utils.Env;
 import us.albertzb.tarot.utils.YamlReader;
+import us.albertzb.util.StringUtils;
 
 /**
  *
@@ -53,7 +54,8 @@ public class TarotTable extends javax.swing.JFrame {
     private transient final DeckStack stack;
     private transient Spreadable spread;
     private transient List<CardImage> images;
-    private final boolean isAISupported;
+    private boolean isAISupported = false;
+    private TarotAiService aiService;
 
     /**
      * Creates new form TarotTable
@@ -70,7 +72,14 @@ public class TarotTable extends javax.swing.JFrame {
             imageLoader.load();
         });
         stack = new DeckStack(deck);
-        isAISupported = Env.hasVar("GOOGLE_API_KEY", "GEMINI_API_KEY");
+        
+        try {
+            aiService = AIServiceFactory.createService();
+            isAISupported = true;
+        } catch(TarotException e) {
+            LOG.info("No AIService created.", e);
+        }
+        
         if (isAISupported) {
             actionBtn.setText("Lay The Cards");
         } else {
@@ -136,24 +145,25 @@ public class TarotTable extends javax.swing.JFrame {
             @Override
             protected Void doInBackground() throws Exception {
                 HTMLDocument doc = (HTMLDocument) interpretationPnl.getDocument();
-                GenerativeAiClient client = GeminiClientImpl.create();
 
                 StringBuilder sb = new StringBuilder("");
-                String question = spread.getConversionPrompt() + "\n" + questionTxt.getText();
-                if (spread.hasInput()) {
-                    client.generateText(question, null).ifPresent(iStr -> {
-                        sb.append(iStr);
-                    });
-                    if (sb.isEmpty()) {
-                        sb.append("a person");
-                    }
+                if (spread.hasConversion()) {
+                    String response = aiService.convert(spread.getConversionPrompt(), questionTxt.getText());
+                    sb.append(response);
+                } else {
+                    sb.append(questionTxt.getText());
                 }
-                client.generateText(getPrompt(sb.toString()), null).ifPresent(iStr -> {
+                if (sb.isEmpty()) {
+                    sb.append("a person");
+                }
+                LOG.debug("User question: " + sb.toString());
+                String response = aiService.interpret(spread.getPrompt(), sb.toString());
+                if(!StringUtils.isNullOrBlank(response)) {
                     Element footer = doc.getElement("foot");
-                    String hStr = iStr
+                    String hStr = response
                             .replaceAll(BOLD_REG, BOLD_INJ)
                             .replaceAll(IT_REG, IT_INJ)
-                            .replaceAll("\n", "<br>");
+                            .replace("\n", "<br>");
 
                     String interpretation = String.format(I_TEMPLATE, "Interpretation", hStr);
                     try {
@@ -161,7 +171,7 @@ public class TarotTable extends javax.swing.JFrame {
                     } catch (IOException | BadLocationException ex) {
                         LOG.warn(I_WARNING, ex);
                     }
-                });
+                }
                 return null;
             }
 

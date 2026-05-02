@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.albertzb.tarot.ui.TarotTable;
+import us.albertzb.util.Config;
 
 /**
  *
@@ -22,7 +23,8 @@ public class Tarot {
     public static void main(String args[]) {
         FlatDarkLaf.setup();
         LOG.info("Starting Tarot application");
-
+        Config.load(Tarot.class, "config/tarot.ini");
+        
         SwingUtilities.invokeLater(() -> {
             /* Create and display the form */
             final JFrame frame = new TarotTable();
